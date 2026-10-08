@@ -1,0 +1,17 @@
+{
+  "name": "app-chat-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The backend of the Pithyx chat template: messages in SQLite, live over a WebSocket.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.ts"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

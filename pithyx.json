@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/@pithyx/sdk/schema/manifest.v1.schema.json",
+  "manifestVersion": 1,
+  "id": "com.example.chat",
+  "version": "1.0.0",
+  "name": { "en": "Chat", "de": "Chat" },
+  "description": {
+    "en": "A team chat for everybody on the box, with notifications and an unread count.",
+    "de": "Ein Team-Chat für alle auf der Box, mit Benachrichtigungen und Zähler für Ungelesenes."
+  },
+  "author": { "name": "Your name" },
+  "license": "MIT",
+  "entry": "frontend/index.html",
+  "sdk": "^1.0.0-rc.3",
+  "permissions": ["notifications", "directory.read"],
+  "window": {
+    "instances": "single",
+    "defaultSize": { "width": 720, "height": 560 },
+    "minSize": { "width": 320, "height": 400 }
+  },
+  "backend": {
+    "compose": "backend/compose.yaml",
+    "endpoints": { "api": { "service": "server", "port": 8080 } },
+    "lifecycle": "onDemand",
+    "idleTimeout": 600,
+    "health": { "endpoint": "api", "path": "/healthz" }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Chat",
+  "placeholder": "Write a message",
+  "send": "Send",
+  "empty": "No messages yet. Say hello.",
+  "you": "You",
+  "backend": {
+    "starting": "The chat is starting…",
+    "unavailable": "The chat is not reachable right now. It tries again on its own."
+  },
+  "notification": { "title": "{name} in the chat", "reply": "Reply" },
+  "noDesktop": "This page runs inside the Pithyx desktop. Start it with npm run dev."
+}

@@ -1,0 +1,5 @@
+# Only for `npm run dev` (pithyx dev): the server is built from backend/server instead of the published image.
+services:
+  server:
+    build: ./server
+    image: app-chat-server:dev

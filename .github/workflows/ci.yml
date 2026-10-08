@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      publish-image:
+        description: Build the backend image for amd64 and arm64 and push it to the GitHub container registry.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  app:
+    uses: pithyx/.github/.github/workflows/app.yml@main
+    with:
+      image: backend/server
+      publish-image: ${{ inputs.publish-image == true }}
+    permissions:
+      contents: write
+      packages: write

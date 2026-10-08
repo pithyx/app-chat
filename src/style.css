@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: var(--pithyx-font-ui, system-ui, sans-serif);
+  color: var(--pithyx-color-text, CanvasText);
+  background: var(--pithyx-color-background, Canvas);
+}
+
+.chat {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.status {
+  margin: 0;
+  padding: 8px 12px;
+  background: var(--pithyx-color-surface-raised, transparent);
+}
+
+.messages {
+  overflow-y: auto;
+  margin: 0;
+  padding: 12px;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.messages li {
+  max-width: 80%;
+}
+
+.messages .mine {
+  justify-self: end;
+  text-align: end;
+}
+
+.messages p {
+  margin: 2px 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.from {
+  font-weight: 600;
+  margin-inline-end: 8px;
+}
+
+time,
+.muted {
+  color: var(--pithyx-color-text-muted, GrayText);
+  font-size: 0.85em;
+}
+
+.compose {
+  display: flex;
+  gap: 8px;
+  align-items: end;
+  padding: 12px;
+  border-top: 1px solid var(--pithyx-color-border, GrayText);
+}
+
+.draft {
+  flex: 1;
+}
