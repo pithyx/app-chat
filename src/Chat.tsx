@@ -22,6 +22,9 @@ export function Chat({ app }: { app: PithyxApp }) {
   const [online, setOnline] = useState(true);
   const [directory, setDirectory] = useState<ReadonlyMap<string, string | null>>(new Map());
   const unread = useRef(0);
+  // Read by the socket's handler, so a loaded directory does not open the socket again.
+  const names = useRef(directory);
+  names.current = directory;
   const me = app.context.user.name;
 
   // Users and their display names; only with directory.read, which an administrator may revoke.
@@ -64,7 +67,7 @@ export function Chat({ app }: { app: PithyxApp }) {
           void app.setBadge(result.badge);
           if (result.notify) {
             void app.notify({
-              title: i18n.t('notification.title', { name: displayName(message.user, directory) }),
+              title: i18n.t('notification.title', { name: displayName(message.user, names.current) }),
               body: message.text,
               actions: [{ id: 'reply', label: i18n.t('notification.reply') }],
               tag: 'chat',
@@ -89,7 +92,7 @@ export function Chat({ app }: { app: PithyxApp }) {
       stopped = true;
       socket?.close();
     };
-  }, [app, directory, i18n, me]);
+  }, [app, i18n, me]);
 
   // Seen once the window shows again; a click on "Reply" in a notification puts the cursor in the input.
   useEffect(() => {

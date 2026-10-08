@@ -14,6 +14,8 @@ backend with a WebSocket and SQLite in a volume. It shows the parts most apps ne
 
 ## Start
 
+You need Node.js 24 or newer.
+
 ```sh
 npm install
 npm run dev     # the mock desktop of pithyx dev; the backend runs with docker compose, built from backend/server
