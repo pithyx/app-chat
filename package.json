@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "build:backend": "pithyx build",
     "test": "npm run build && pithyx validate && vitest run",
-    "pack": "npm run build && pithyx pack",
-    "pin": "node scripts/pin-image.ts"
+    "pack": "npm run build && pithyx build && pithyx pack --images"
   },
   "dependencies": {
     "@pithyx/sdk": "1.0.0-rc.3",

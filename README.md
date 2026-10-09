@@ -14,29 +14,36 @@ backend with a WebSocket and SQLite in a volume. It shows the parts most apps ne
 
 ## Start
 
-You need Node.js 24 or newer.
+You need Node.js 24 or newer and Docker.
 
 ```sh
 npm install
-npm run dev     # the mock desktop of pithyx dev; the backend runs with docker compose, built from backend/server
-npm test        # type check, build, pithyx validate and the unit tests of frontend and backend
-npm run pack    # writes <id>-<version>.pithyxapp
+npm run dev            # the mock desktop of pithyx dev; the backend runs with docker compose from backend/compose.dev.yaml
+npm run build:backend  # pithyx build: builds backend/server and writes backend/compose.yaml and images.lock.json
+npm test               # type check, build, pithyx validate and the unit tests of frontend and backend
+npm run pack           # writes <id>-<version>.pithyxapp with the backend image inside
 ```
 
-`npm run dev` needs Docker. `backend/compose.dev.yaml` builds the server from its source for development; the box
-always runs the published image.
+`pithyx build` needs `@pithyx/cli` 1.0.0-rc.5 or newer.
 
-## The backend image
+## The backend
 
-The box never builds anything: `backend/compose.yaml` names the server's image by digest, and
-`backend/images.lock.json` names its image per architecture. Until the first image is published, `npm test` stops at
-`cli.lock.missing`. For a release:
+`backend/compose.dev.yaml` is the backend's source form: the service `server` is built from `backend/server`, whose
+`FROM` is pinned by digest. The box never builds anything; it runs `backend/compose.yaml`, which names the image by
+digest, with `backend/images.lock.json` naming it per architecture. Both are written by a build, never by hand, and
+are not committed. There are two ways to bring the app to a box:
 
-1. Run the CI workflow by hand with "publish-image": it builds `backend/server` for amd64 and arm64 and pushes
-   `ghcr.io/<owner>/app-chat-server:<version>`.
-2. `npm run pin -- ghcr.io/<owner>/app-chat-server:<version>@sha256:<digest>` puts the digest into
-   `backend/compose.yaml` and writes the lock with `pithyx lock`.
-3. Commit both, publish a GitHub release; the CI attaches the `.pithyxapp`.
+- **A catalog** (the way for everybody else's boxes): open a pull request that adds the app's source as
+  `apps/<id>/` to a catalog repository, for example `pithyx/apps-community` (see its CONTRIBUTING.md). After the
+  review, the catalog's CI builds the frontend and the images from the merged commit, pushes the images to its
+  registry, pins them by digest and publishes the package; boxes install it from the Store and get its updates.
+- **A sideload** (for your own box and for testing): `npm run pack` runs `pithyx build`, which builds the image for
+  your machine and tags it `pithyx.local/com.example.chat/server:<version>`, and `pithyx pack --images`, which puts the
+  image into the package. Install the `.pithyxapp` in the Store (gear, Install from file). Such a package carries the
+  image of one architecture and is marked unverified.
+
+The CI of this repository does the sideload build on every push and attaches the package to a GitHub release.
+`vendor/` is temporary: it holds `@pithyx/cli` 1.0.0-rc.5 until that version is on npm.
 
 ## License
 
