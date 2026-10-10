@@ -45,8 +45,6 @@ are not committed. There are two ways to bring the app to a box:
   image of one architecture and is marked unverified.
 
 The CI of this repository does the sideload build on every push and attaches the package to a GitHub release.
-`vendor/` is temporary: it holds `@pithyx/cli` 1.0.0-rc.5 until that version is on npm.
-
 ## License
 
 MIT
