@@ -3,6 +3,8 @@
 A team chat as a [Pithyx](https://github.com/pithyx/pithyx) app: a React frontend with `@pithyx/ui` and a Node.js
 backend with a WebSocket and SQLite in a volume. It shows the parts most apps need:
 
+Part of Pithyx by Schecher1 (https://github.com/Schecher1).
+
 - **A backend** (`backend/`): one service, reached only through the box's proxy at `/apps/<id>/api/`. The proxy checks
   the user's token and names the user in `X-Pithyx-User`, so the backend has no sign-in of its own
   (`backend/server/src/server.ts`). Messages live in SQLite in the named volume `data`, a folder of the app's dataset
