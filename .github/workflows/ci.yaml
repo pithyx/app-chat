@@ -23,12 +23,9 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # Temporary: pithyx build comes with @pithyx/cli 1.0.0-rc.5, which is not on npm yet; vendor/ holds the packages
-      # built with npm pack from the Pithyx repository. Once it is published, raise the devDependency to it, run
-      # npm run build:backend and npm run pack instead, and delete vendor/ and this step.
       - name: Install @pithyx/cli 1.0.0-rc.5
         run: |
-          npm install --global --no-audit --no-fund ./vendor/pithyx-sdk-1.0.0-rc.5.tgz ./vendor/pithyx-cli-1.0.0-rc.5.tgz
+          npm install --global --no-audit --no-fund @pithyx/cli@1.0.0-rc.5
           echo "PITHYX=$(npm prefix --global)/bin/pithyx" >>"$GITHUB_ENV"
       - name: Build the backend image
         run: '"$PITHYX" build'
