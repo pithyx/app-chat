@@ -23,9 +23,9 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Install @pithyx/cli 1.0.0-rc.5
+      - name: Install @pithyx/cli 1.0.0-rc.9
         run: |
-          npm install --global --no-audit --no-fund @pithyx/cli@1.0.0-rc.5
+          npm install --global --no-audit --no-fund @pithyx/cli@1.0.0-rc.9
           echo "PITHYX=$(npm prefix --global)/bin/pithyx" >>"$GITHUB_ENV"
       - name: Build the backend image
         run: '"$PITHYX" build'
