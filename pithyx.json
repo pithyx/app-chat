@@ -22,6 +22,9 @@
     "arm64"
   ],
   "source": "https://github.com/pithyx/app-chat",
+  "privacy": {
+    "sends": "none"
+  },
   "permissions": {
     "notifications": {
       "reason": {
