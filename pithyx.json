@@ -1,6 +1,6 @@
 {
-  "$schema": "./node_modules/@pithyx/sdk/schema/manifest.v1.schema.json",
-  "manifestVersion": 1,
+  "$schema": "./node_modules/@pithyx/sdk/schema/manifest.v2.schema.json",
+  "manifestVersion": 2,
   "id": "com.example.chat",
   "version": "1.0.0",
   "name": {
@@ -16,11 +16,29 @@
   },
   "license": "MIT",
   "entry": "frontend/index.html",
-  "sdk": "^1.0.0-rc.9",
-  "permissions": [
-    "notifications",
-    "directory.read"
+  "sdk": "^2.0.0",
+  "arch": [
+    "amd64",
+    "arm64"
   ],
+  "source": "https://github.com/pithyx/app-chat",
+  "privacy": {
+    "sends": "none"
+  },
+  "permissions": {
+    "notifications": {
+      "reason": {
+        "en": "Tells you about new messages.",
+        "de": "Sagt dir Bescheid bei neuen Nachrichten."
+      }
+    },
+    "directory.read": {
+      "reason": {
+        "en": "Shows who is in the chat with their names.",
+        "de": "Zeigt, wer im Chat ist, mit Namen."
+      }
+    }
+  },
   "window": {
     "instances": "single",
     "defaultSize": {
