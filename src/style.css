@@ -11,20 +11,37 @@ body {
   height: 100vh;
 }
 
-.status {
+/* Said once for the window, as an info bar under the title, with the state in words. */
+.info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 0;
   padding: 8px 12px;
-  background: var(--pithyx-color-surface-raised, transparent);
+  border-bottom: 1px solid var(--pithyx-color-border, GrayText);
+  background: var(--pithyx-color-surface, transparent);
+  font-size: 0.875em;
 }
 
 .messages {
   overflow-y: auto;
+  padding: 0 12px 12px;
+}
+
+.messages ol {
   margin: 0;
-  padding: 12px;
+  padding: 0;
   list-style: none;
   display: grid;
   gap: 8px;
-  align-content: start;
+}
+
+/* A small bold muted heading per day. */
+.day {
+  margin: 12px 0 6px;
+  color: var(--pithyx-color-text-muted, GrayText);
+  font-size: 0.75em;
+  font-weight: 600;
 }
 
 .messages li {

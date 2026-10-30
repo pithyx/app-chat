@@ -1,9 +1,10 @@
 import type { PithyxApp } from '@pithyx/sdk';
 import { createI18n } from '@pithyx/sdk/i18n';
-import { Button, TextField } from '@pithyx/ui';
+import { Button, StatusBadge, TextField } from '@pithyx/ui';
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import de from '../i18n/de.json';
 import en from '../i18n/en.json';
+import { byDay } from './days';
 import { arrive, displayName } from './unread';
 
 interface Message {
@@ -128,20 +129,30 @@ export function Chat({ app }: { app: PithyxApp }) {
   return (
     <div className="chat">
       {!online && (
-        <p className="status" role="status">
+        <p className="info" role="status">
+          <StatusBadge tone={app.context.backend?.status === 'starting' ? 'info' : 'warning'}>
+            {i18n.t(app.context.backend?.status === 'starting' ? 'state.starting' : 'state.offline')}
+          </StatusBadge>
           {i18n.t(app.context.backend?.status === 'starting' ? 'backend.starting' : 'backend.unavailable')}
         </p>
       )}
-      <ol className="messages" aria-live="polite">
-        {messages.length === 0 && <li className="muted">{i18n.t('empty')}</li>}
-        {messages.map((message) => (
-          <li key={message.id} className={message.user === me ? 'mine' : undefined}>
-            <span className="from">{message.user === me ? i18n.t('you') : displayName(message.user, directory)}</span>
-            <time dateTime={message.sentAt}>{app.format.time(new Date(message.sentAt))}</time>
-            <p>{message.text}</p>
-          </li>
+      <div className="messages" aria-live="polite">
+        {messages.length === 0 && <p className="muted">{i18n.t('empty')}</p>}
+        {byDay(messages, (message) => app.format.date(new Date(message.sentAt))).map(({ day, items }) => (
+          <section key={`${day}-${String(items[0]?.id)}`} aria-label={day}>
+            <h2 className="day">{day}</h2>
+            <ol>
+              {items.map((message) => (
+                <li key={message.id} className={message.user === me ? 'mine' : undefined}>
+                  <span className="from">{message.user === me ? i18n.t('you') : displayName(message.user, directory)}</span>
+                  <time dateTime={message.sentAt}>{app.format.time(new Date(message.sentAt))}</time>
+                  <p>{message.text}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
         ))}
-      </ol>
+      </div>
       <form className="compose" onSubmit={(event) => void send(event)}>
         <TextField
           label={i18n.t('placeholder')}
