@@ -8,6 +8,13 @@
     "starting": "The chat is starting…",
     "unavailable": "The chat is not reachable right now. It tries again on its own."
   },
-  "notification": { "title": "{name} in the chat", "reply": "Reply" },
-  "noDesktop": "This page runs inside the Pithyx desktop. Start it with npm run dev."
+  "notification": {
+    "title": "{name} in the chat",
+    "reply": "Reply"
+  },
+  "noDesktop": "This page runs inside the Pithyx desktop. Start it with npm run dev.",
+  "state": {
+    "starting": "Starting",
+    "offline": "Offline"
+  }
 }

@@ -41,7 +41,7 @@ are not committed. There are two ways to bring the app to a box:
   registry, pins them by digest and publishes the package; boxes install it from the Store and get its updates.
 - **A sideload** (for your own box and for testing): `npm run pack` runs `pithyx build`, which builds the image for
   your machine and tags it `pithyx.local/com.example.chat/server:<version>`, and `pithyx pack --images`, which puts the
-  image into the package. Install the `.pithyxapp` in the Store (gear, Install from file). Such a package carries the
+  image into the package. Install the `.pithyxapp` in the Store (**Installed**, **Install from file**). Such a package carries the
   image of one architecture and is marked unverified.
 
 The CI of this repository does the sideload build on every push and attaches the package to a GitHub release.
